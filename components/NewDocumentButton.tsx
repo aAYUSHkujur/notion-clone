@@ -3,6 +3,7 @@
 import { useTransition } from "react";
 import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
+import { createNewDocument } from "@/actions/actions";
 
 function NewDocumentButton() {
   const [isPending, startTransition] = useTransition();
@@ -16,7 +17,7 @@ function NewDocumentButton() {
   };
 
   return (
-    <Button onClick={handleCreateNewDocument} disabled={!isPending}>
+    <Button onClick={handleCreateNewDocument} disabled={isPending}>
       {isPending ? "Creating..." : "New Document"}
     </Button>
   );
