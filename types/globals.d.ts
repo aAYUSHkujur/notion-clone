@@ -3,5 +3,6 @@ import { User } from "./types";
 export { }
 
 declare global {
-    interface CustomJwtSessionClaims extends User
+    // eslint-disable-next-line @typescript-eslint/no-empty-object-type
+    interface CustomJwtSessionClaims extends User {}
 }

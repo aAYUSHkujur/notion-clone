@@ -8,14 +8,15 @@ export async function createNewDocument() {
 
     const { sessionClaims } = await auth();
 
-    const docCollectionRef = admindb.collection("Documents");
+    const docCollectionRef = admindb.collection("documents");
     const docRef = await docCollectionRef.add({
         title: "New Doc"
     })
-
+    
     // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
-    await admindb.collection('users').doc(sessionClaims?.email!).collection('rooms').doc(docRef.id).set({
-        userId: sessionClaims?.email,
+    await admindb.collection("users").doc(sessionClaims?.email!).collection("rooms").doc(docRef.id).set({
+        // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+        userId: sessionClaims?.email!,
         role: "owner",
         createdAt: new Date(),
         roomId: docRef.id,
