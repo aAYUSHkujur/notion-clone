@@ -1,3 +1,4 @@
+import RoomProvider from "@/components/RoomProvider";
 import { auth } from "@clerk/nextjs/server";
 
 function DocLayout({
@@ -11,6 +12,6 @@ function DocLayout({
 }) {
   auth.protect();
 
-  return <div>{children}</div>;
+  return <RoomProvider roomId={id}>{children}</RoomProvider>;
 }
 export default DocLayout;

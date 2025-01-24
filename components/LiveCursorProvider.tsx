@@ -3,8 +3,10 @@
 import { useOthers } from "@liveblocks/react";
 import { useMyPresence } from "@liveblocks/react/suspense";
 import { PointerEvent } from "react";
+import FollowPointer from "./FollowPointer";
 
 function LiveCursorProvider({ children }: { children: React.ReactNode }) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [myPresence, UpdateMyPresence] = useMyPresence();
   const others = useOthers();
 
