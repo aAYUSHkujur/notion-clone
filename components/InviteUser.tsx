@@ -16,7 +16,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { deleteDocument } from "@/actions/actions";
 import { toast } from "sonner";
 
-function DeleteDocument() {
+function InviteUser() {
   const [isOpen, setIsOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
   const pathname = usePathname();
@@ -41,15 +41,14 @@ function DeleteDocument() {
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <Button asChild variant="destructive">
-        <DialogTrigger>Delete</DialogTrigger>
+      <Button asChild variant="outline">
+        <DialogTrigger>Invite</DialogTrigger>
       </Button>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Are you sure you want to Delete?</DialogTitle>
+          <DialogTitle>Invite a User to collaborate!</DialogTitle>
           <DialogDescription>
-            This will delete the document and all its contents, removing all
-            users from the document.
+            Enter the email of the user you want to invite.
           </DialogDescription>
         </DialogHeader>
 
@@ -72,4 +71,4 @@ function DeleteDocument() {
     </Dialog>
   );
 }
-export default DeleteDocument;
+export default InviteUser;
