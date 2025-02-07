@@ -2,39 +2,39 @@
 
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { useState, useTransition } from "react";
+import { FormEvent, useState, useTransition } from "react";
 import { Button } from "./ui/button";
-import { usePathname, useRouter } from "next/navigation";
-import { deleteDocument } from "@/actions/actions";
+import { usePathname } from "next/navigation";
+import { inviteUserToDocument } from "@/actions/actions";
 import { toast } from "sonner";
+import { Input } from "./ui/input";
 
 function InviteUser() {
   const [isOpen, setIsOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
   const pathname = usePathname();
-  const router = useRouter();
+  const [email, setEmail] = useState("");
 
-  const handleDelete = async () => {
+  const handleInvite = async (e: FormEvent) => {
+    e.preventDefault();
     const roomId = pathname.split("/").pop();
     if (!roomId) return;
 
     startTransition(async () => {
-      const { success } = await deleteDocument(roomId);
+      const { success } = await inviteUserToDocument(roomId, email);
 
       if (success) {
         setIsOpen(false);
-        router.replace("/");
-        toast.success("Document deleted successfully");
+        setEmail("");
+        toast.success("User Added to the room successfully");
       } else {
-        toast.error("Failed to delete room!");
+        toast.error("Failed to add user to the room!");
       }
     });
   };
@@ -52,21 +52,18 @@ function InviteUser() {
           </DialogDescription>
         </DialogHeader>
 
-        <DialogFooter className="sm:justify-end gap-2">
-          <Button
-            type="button"
-            variant="destructive"
-            onClick={handleDelete}
-            disabled={isPending}
-          >
-            {isPending ? "Deleting..." : "Delete"}
+        <form className="flex gap-2" onSubmit={handleInvite}>
+          <Input
+            type="email"
+            placeholder="Email"
+            className="w-full"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <Button type="submit" disabled={!email || isPending}>
+            {isPending ? "Inviting..." : "Invite"}
           </Button>
-          <DialogClose asChild>
-            <Button type="button" variant="secondary">
-              Close
-            </Button>
-          </DialogClose>
-        </DialogFooter>
+        </form>
       </DialogContent>
     </Dialog>
   );

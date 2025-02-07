@@ -10,9 +10,11 @@ import Editor from "./Editor";
 import useOwner from "@/lib/useOwner";
 import DeleteDocument from "./DeleteDocument";
 import InviteUser from "./InviteUser";
+import ManageUsers from "./ManageUsers";
 
 function Document({ id }: { id: string }) {
-  const [data, loeading, error] = useDocumentData(doc(db, "documents", id));
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [data, loading, error] = useDocumentData(doc(db, "documents", id));
   const [input, setInput] = useState("");
   const [isUpdating, startTransition] = useTransition();
   const isOwner = useOwner();
@@ -57,7 +59,8 @@ function Document({ id }: { id: string }) {
         </form>
       </div>
 
-      <div>
+      <div className="flex max-w-6xl mx-auto justify-between items-center mb-5">
+        <ManageUsers />
         {/* ManageUsers */}
 
         {/* Avatars */}
