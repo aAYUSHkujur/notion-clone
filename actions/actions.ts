@@ -69,5 +69,18 @@ export async function inviteUserToDocument(roomId: string, email: string) {
         console.error(error);
         return { success: false };
     }
+}
 
+export async function removeUserFromDocument(roomId: string, email: string) {
+    auth.protect();
+    console.log("Removing user from document with id: ", roomId, email);
+
+    try {
+        await admindb.collection("users").doc(email).collection("rooms").doc(roomId).delete();
+
+        return { success: true };
+    } catch (error) { 
+        console.error(error);
+        return { success: false };
+    }
 }
