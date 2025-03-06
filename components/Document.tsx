@@ -52,7 +52,6 @@ function Document({ id }: { id: string }) {
 
           {isOwner && (
             <>
-              {/* Invite User */}
               <InviteUser />
               <DeleteDocument />
             </>
@@ -68,7 +67,6 @@ function Document({ id }: { id: string }) {
       </div>
 
       <hr className="pb-10" />
-      {/* Collaborative Editor */}
       <Editor />
     </div>
   );
